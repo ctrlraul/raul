@@ -10,7 +10,6 @@ export interface HullItemType {
   joint: Vector2;
   stats: {
 		health: number;
-		energy: number;
 		acceleration: number;
 	};
 };
@@ -27,7 +26,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(8, 5),
 	stats: {
 		health: 10 * 10,
-		energy: 10 * 10,
 		acceleration: 10 * accMult,
 	},
 }, {
@@ -38,7 +36,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(7, 5),
 	stats: {
 		health: 8 * 10,
-		energy: 10 * 10,
 		acceleration: 12 * accMult,
 	},
 }, {
@@ -49,7 +46,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(7, 5),
 	stats: {
 		health: 9 * 10,
-		energy: 12 * 10,
 		acceleration: 9 * accMult,
 	},
 }, {
@@ -60,7 +56,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(7, 6),
 	stats: {
 		health: 11 * 10,
-		energy: 9.5 * 10,
 		acceleration: 9.5 * accMult,
 	},
 }, {
@@ -71,7 +66,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(7, 5),
 	stats: {
 		health: 9 * 10,
-		energy: 12.5 * 10,
 		acceleration: 8.5 * accMult,
 	},
 }, {
@@ -82,7 +76,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(7, 7),
 	stats: {
 		health: 10 * 10,
-		energy: 9 * 10,
 		acceleration: 11 * accMult,
 	},
 }, {
@@ -93,7 +86,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(7, 6),
 	stats: {
 		health: 15.5 * 10,
-		energy: 9.5 * 10,
 		acceleration: 5 * accMult,
 	},
 }, {
@@ -104,7 +96,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(7, 6),
 	stats: {
 		health: 7.5 * 10,
-		energy: 11.5 * 10,
 		acceleration: 11 * accMult,
 	},
 }, {
@@ -115,7 +106,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(8, 11),
 	stats: {
 		health: 10.5 * 10,
-		energy: 11.5 * 10,
 		acceleration: 11 * accMult,
 	},
 }, {
@@ -126,7 +116,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(8, 8),
 	stats: {
 		health: 13 * 10,
-		energy: 9 * 10,
 		acceleration: 11 * accMult,
 	},
 }, {
@@ -137,7 +126,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(5, 4),
 	stats: {
 		health: 12.5 * 10,
-		energy: 6.5 * 10,
 		acceleration: 14 * accMult,
 	},
 }, {
@@ -148,7 +136,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(9, 12),
 	stats: {
 		health: 12 * 10,
-		energy: 13 * 10,
 		acceleration: 11 * accMult,
 	},
 }, {
@@ -159,7 +146,6 @@ const hulls: HullItemType[] = [{
 	joint: new Vector2(10, 9),
 	stats: {
 		health: 16 * 10,
-		energy: 11.5 * 10,
 		acceleration: 11.5 * accMult,
 	},
 }];

@@ -9,10 +9,11 @@ import { ProjectileModifierInit } from "./ProjectileModifiersManager";
 const init: ProjectileModifierInit = (p, gs) => {
 
 	const rotationScale = 0.05;
+	const ship = getNearestShip(p.pos, gs.ships.filter(ship => {
+		return ship !== p.owner && ship.alive
+	}));
 
-	return (gs) => {
-
-		const ship = getNearestShip(p.pos, gs.ships.filter(ship => ship.alive));
+	return () => {
 
 		if (ship === null) return;
 
