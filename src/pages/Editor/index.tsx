@@ -5,10 +5,10 @@ import Nort from "../../nort/Nort";
 import PlayerControl from "../../nort/PlayerControl";
 import SpritesManager, { SpriteSourceData } from "../../nort/renderer/SpritesManager";
 import PlayerData from "../../nort/singletons/PlayerData";
-import './style.css';
 import { HullItemType } from "../../nort/items/hulls";
 import { TurretItemType } from "../../nort/items/turrets";
 import Ship from "../../nort/ships/Ship";
+import './style.css';
 
 
 const Editor = () => {
@@ -22,7 +22,7 @@ const Editor = () => {
 		const hull = PlayerData.getItemByInInventoryID<HullItemType>(shipData.hull).item;
 		const turret = PlayerData.getItemByInInventoryID<TurretItemType>(shipData.turret).item;
 		const gs = Nort.getGameState();
-		const lastShip = gs.ships[0];
+		const lastShip = displayShip ? gs.ships[0] : null;
 
 		gs.clear();
 
@@ -33,12 +33,14 @@ const Editor = () => {
 				hullAngle: lastShip.hullAngle,
 				turretAngle: lastShip.turretAngle,
 				color: lastShip.color,
+				ai: false,
 			});
 		} else {
 			gs.addShip({
 				hull,
 				turret,
 				color: PlayerData.color,
+				ai: false,
 			});
 		}
 

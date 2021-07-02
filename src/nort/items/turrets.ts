@@ -43,7 +43,7 @@ const turrets: TurretItemType[] = [
 			angleSpread: 4,
 			size: 2,
 			speed: 3,
-			damage: 10,
+			damage: 8,
 			lifespan: 50,
 		}),
 	]
@@ -154,7 +154,7 @@ const turrets: TurretItemType[] = [
 			size: 70,
 			damage: 0.24,
 			angleSpread: 1,
-			lifespan: 2,
+			lifespan: 1,
 		}),
 	]
 
@@ -331,7 +331,7 @@ const turrets: TurretItemType[] = [
 	name: 'Light Spear',
 	tier: 3,
 	sprite: new SpriteSourceData('turrets', 42, 36, 16, 16),
-	joint: new Vector2(8, 12),
+	joint: new Vector2(8, 11),
 	stats: {
 		ammo: 3,
 		reloadTime: 100,
@@ -345,7 +345,7 @@ const turrets: TurretItemType[] = [
 			type: 'line',
 			offset: [0, 10],
 			size: 100,
-			damage: 1,
+			damage: 0.5,
 			angleSpread: 0,
 			lifespan: 25,
 		}),
@@ -382,22 +382,56 @@ const turrets: TurretItemType[] = [
 	sprite: new SpriteSourceData('turrets', 62, 36, 16, 16),
 	joint: new Vector2(8, 8),
 	stats: {
-		ammo: 5,
+		ammo: 3,
 		reloadTime: 120,
 		weight: 0.5,
 		cooldown: 60,
-		rotationSpeed: 0.01,
+		rotationSpeed: 0,
 		firingRange: 200,
 	},
 	projectiles: [
 		createProjectileFactory({
 			type: 'point',
-			offset: [0, 5],
+			offset: [0, -5.5],
 			size: 3,
 			speed: 0,
-			damage: 25,
+			damage: 20,
 			lifespan: 2000,
 			explosionRadius: 20,
+		}),
+	]
+}, {
+	id: 28,
+	name: 'Scarab',
+	tier: 4,
+	sprite: new SpriteSourceData('turrets', 24, 56, 20, 20),
+	joint: new Vector2(9, 9),
+	stats: {
+		ammo: 15,
+		reloadTime: 15,
+		weight: 0.3,
+		cooldown: 0,
+		rotationSpeed: 0.05,
+		firingRange: 120,
+	},
+	projectiles: [
+		createProjectileFactory({
+			type: 'line',
+			offset: [3.5, 9],
+			size: 100,
+			damage: 0.1,
+			angle: -1.8,
+			angleSpread: 0.5,
+			lifespan: 1,
+		}),
+		createProjectileFactory({
+			type: 'line',
+			offset: [-3.5, 9],
+			size: 100,
+			damage: 0.1,
+			angle: 1.8,
+			angleSpread: 0.5,
+			lifespan: 1,
 		}),
 	]
 }];

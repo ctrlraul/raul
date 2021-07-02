@@ -53,7 +53,7 @@ const CanvasRenderer = new (class CanvasRenderer {
     this.clear({ ctx, canvas });
 
     ctx.fillStyle = 'green';
-    ctx.font = '2rem monospace';
+    ctx.font = '1.6rem monospace';
     ctx.fillText(window.devicePixelRatio.toString(), canvas.width - 50, 50);
 
     ctx.save();
@@ -124,11 +124,12 @@ const CanvasRenderer = new (class CanvasRenderer {
 
     const pos = camera.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
 
-
-    ctx.beginPath();
-
     const width = canvas.width / camera.zoom * Settings.GRAPHIC_SCALE;
     const height = canvas.height / camera.zoom * Settings.GRAPHIC_SCALE;
+
+
+    ctx.beginPath();
+    ctx.arc(0, 0, 4, 0, Math.PI * 2);
 
     // Vertical Lines
     {
@@ -162,9 +163,6 @@ const CanvasRenderer = new (class CanvasRenderer {
     ctx.strokeStyle = '#ffffff30';
     ctx.stroke();
     ctx.closePath();
-
-    ctx.fillStyle = ctx.strokeStyle;
-    ctx.fillText(gridGap + 'x' + gridGap, 5, 12);
 
   }
 

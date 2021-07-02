@@ -66,7 +66,7 @@ function separateDeadAndAlive (projectiles: Projectile[]) {
 function ageUp (projectiles: Projectile[]): void {
   for (const p of projectiles) {
     p.age++;
-    if (p.age >= p.lifespan) {
+    if (p.age > p.lifespan) {
       p.alive = false;
     }
   }

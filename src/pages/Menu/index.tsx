@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import turrets from "../../nort/items/turrets";
 import Nort from "../../nort/Nort";
 import HSLA from "../../nort/utils/HSLA";
 import Vector2 from "../../nort/utils/Vector2";
@@ -11,23 +12,19 @@ const Menu = () => {
 
 	const gs = Nort.getGameState();
 
-
-	gs.start(() => ({
-
-		team1: [{
-			color: HSLA.random(),
-			pos: new Vector2(-200, 0),
+	gs.deathmatch(() => ({
+		color: new HSLA(0, 0, 100),
+		ships: [{
+			turret: turrets.find(t => t.id === 9),
+			pos: new Vector2(100, 0),
 			invulnerable: true,
 			showInfo: false,
-		}],
-
-		team3: [{
-			color: HSLA.random(),
-			pos: new Vector2(200, 0),
+		}, {
+			turret: turrets.find(t => t.id === 7),
+			pos: new Vector2(-100, 0),
 			invulnerable: true,
 			showInfo: false,
-		}],
-
+		}]
 	}));
 
 

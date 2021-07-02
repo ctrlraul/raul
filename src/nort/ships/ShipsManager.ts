@@ -75,6 +75,10 @@ function getShipTurretPosition (ship: Ship): Vector2 {
 
 function rotateShipTowardsAngle (ship: Ship, angle: number): void {
 	ship.hullAngle = rotateAngleTowardsTarget(ship.hullAngle, angle, 0.05);
+
+	if (ship.turret.stats.rotationSpeed === 0) {
+		ship.turretAngle = ship.hullAngle;
+	}
 }
 
 
@@ -97,6 +101,7 @@ function accelerateShip (ship: Ship, angle: number, force?: number): void {
 	ship.vel.add(motion);
 
 	rotateShipTowardsAngle(ship, ship.vel.angle());
+	// rotateShipTowardsAngle(ship, motion.angle());
 
 }
 
@@ -106,13 +111,20 @@ function accelerateShip (ship: Ship, angle: number, force?: number): void {
 
 function tickAI (ship: Ship): void {
 
+	if (!ship.ai) {
+		return;
+	}
+
 	if (ship.nearestTargetShip && !ship.nearestTargetShip.alive) {
 		ship.nearestTargetShip = null;
 	}
 
 	ship.nearestTargetShip = getNearestTargetShip(ship);
 
-	if (ship.nearestTargetShip === null) return;
+	if (ship.nearestTargetShip === null) {
+		ship.firing = false;
+		return;
+	}
 
 	rotateTurretTowardsAngle(ship, ship.pos.angleTo(ship.nearestTargetShip.pos));
 
@@ -249,7 +261,7 @@ function getNearestTargetShip (ship: Ship): Ship | null {
 function getPositionToHuntTarget (ship: Ship, target: Ship): Vector2 {
 
 	// TODO: Make this depend on turret state
-	const idealDist = target.areaRadius + ship.turret.stats.firingRange - 20;
+	const idealDist = ship.turret.stats.firingRange * 0.5 + ship.turret.stats.firingRange * Math.random();
 	const currentDist = ship.pos.distance(target.pos);
 
 

@@ -16,7 +16,7 @@ export interface HullItemType {
 };
 
 
-const accMult = 0.0044;
+const accMult = 0.0045;
 
 
 const hulls: HullItemType[] = [{

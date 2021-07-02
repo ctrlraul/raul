@@ -1,11 +1,17 @@
 import ProjectileBase from "../projectiles/Projectile";
 import Ship from "../ships/Ship";
 import ParticleEmitter from "../particles/ParticleEmitter";
+import HSLA from "../utils/HSLA";
 
 
 
 type StartGameFn = () => Record<string, (ConstructorParameters<typeof Ship>[0])[]>;
 
+
+interface DeathMatchConfig {
+  color?: HSLA;
+  ships: ConstructorParameters<typeof Ship>[0][];
+}
 
 
 class GameState {
@@ -49,6 +55,29 @@ class GameState {
 
       }
     }
+
+  }
+
+
+  public deathmatch (fn: () => DeathMatchConfig): void {
+
+    this.clear();
+    
+    const { color, ships: shipsArgs } = fn();
+
+    const ships = shipsArgs.map(args =>
+      new Ship({ color, ...args })
+    );
+
+    for (const a of ships) {
+      for (const b of ships) {
+        if (a !== b) {
+          a.targetShips.push(b);
+        }
+      }
+    }
+
+    this.ships.push(...ships);
 
   }
 

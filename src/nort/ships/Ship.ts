@@ -18,6 +18,7 @@ interface Args {
   hullAngle?: number;
   turretAngle?: number;
 
+  ai?: boolean; 
   targetPos?: Vector2;
   targetShips?: Ship[];
 
@@ -46,6 +47,7 @@ export default class Ship {
   areaRadius: number;
 
   // Controlling
+  ai: boolean;
   targetPos: Vector2 | null;
   targetShips: Ship[];
   nearestTargetShip: Ship | null = null;
@@ -92,6 +94,7 @@ export default class Ship {
     this.areaRadius = this.hull.sprite.width * 0.5;
 
     // Controlling
+    this.ai = typeof args.ai === 'boolean' ? args.ai : true;
     this.targetPos = args.targetPos || null;
     this.targetShips = args.targetShips || [];
     this.attackingSide = args.attackingSide || (Math.random() > 0.5 ? 1 : -1);
