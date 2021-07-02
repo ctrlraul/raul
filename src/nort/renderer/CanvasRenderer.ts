@@ -48,7 +48,7 @@ const CanvasRenderer = new (class CanvasRenderer {
     const { canvas, ctx, camera } = config;
 
     const cameraPos = camera.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
-    const zoom = config.camera.zoom / Settings.GRAPHIC_SCALE;
+    const zoom = config.camera.zoom / Settings.GRAPHIC_SCALE * window.devicePixelRatio;
 
     this.clear({ ctx, canvas });
 
