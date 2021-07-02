@@ -412,7 +412,7 @@ const turrets: TurretItemType[] = [
 		weight: 0.3,
 		cooldown: 0,
 		rotationSpeed: 0.05,
-		firingRange: 120,
+		firingRange: 100,
 	},
 	projectiles: [
 		createProjectileFactory({
