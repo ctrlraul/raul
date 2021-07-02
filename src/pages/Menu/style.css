@@ -1,0 +1,46 @@
+#menu {
+	display: flex;
+	flex-direction: column;
+}
+
+#menu .start-game-btns-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+	width: 100%;
+	flex: 1;
+}
+
+#menu .start-game-btns-container button {
+	position: relative;
+
+	width: 20rem;
+	height: 13rem;
+
+	font-size: 1.8rem;
+	color: #dddddd;
+
+	background-color: #000000cc;
+	border: 0.5rem solid #ffffffcc;
+	border-radius: 0.1rem;
+
+	cursor: pointer;
+
+	transition: 100ms;
+}
+
+#menu .start-game-btns-container button:hover {
+	transform: scale(0.95);
+}
+
+
+#menu footer {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 6rem;
+}
