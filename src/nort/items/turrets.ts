@@ -380,7 +380,7 @@ const turrets: TurretItemType[] = [
 	name: 'Mine Lander',
 	tier: 3,
 	sprite: new SpriteSourceData('turrets', 62, 36, 16, 16),
-	joint: new Vector2(8, 8),
+	joint: new Vector2(8, 6),
 	stats: {
 		ammo: 3,
 		reloadTime: 120,
@@ -404,8 +404,8 @@ const turrets: TurretItemType[] = [
 	id: 28,
 	name: 'Scarab',
 	tier: 4,
-	sprite: new SpriteSourceData('turrets', 24, 56, 20, 20),
-	joint: new Vector2(9, 9),
+	sprite: new SpriteSourceData('turrets', 24, 56, 18, 18),
+	joint: new Vector2(9, 10),
 	stats: {
 		ammo: 15,
 		reloadTime: 15,
