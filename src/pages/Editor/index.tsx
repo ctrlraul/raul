@@ -78,7 +78,7 @@ const Editor = () => {
 
 
 	return (
-		<div id="editor" className="screen">
+		<div id="editor" className="screen no-select">
 			
 			<header>
 				<GoBackBtn/>

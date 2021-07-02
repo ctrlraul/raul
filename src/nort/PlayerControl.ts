@@ -65,13 +65,10 @@ function setBody (ship: Ship | null): void {
 
 // Event listeners
 
-window.addEventListener('mousedown', e => {
-	click = true;
-});
-
-window.addEventListener('mouseup', e => {
-	click = false;
-});
+window.addEventListener('mousedown',  () => { click = true  });
+window.addEventListener('touchstart', () => { click = true  });
+window.addEventListener('mouseup',    () => { click = false });
+window.addEventListener('touchend',   () => { click = false });
 
 window.addEventListener('keydown', e => {
 	keyboard[e.code as keyof typeof keyboard] = true;

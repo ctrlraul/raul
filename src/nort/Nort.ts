@@ -63,9 +63,9 @@ async function init (config: NortConfig) {
     adjustCanvasSize(canvas);
   });
 
-  window.addEventListener('mousemove', e => {
-    updateMousePosition(mouse, camera, e);
-  });
+  window.addEventListener('mousemove',  e => { updateMousePosition(mouse, camera, e) });
+  window.addEventListener('touchmove',  e => { updateMousePosition(mouse, camera, e) });
+  window.addEventListener('touchstart', e => { updateMousePosition(mouse, camera, e) });
 
 
   await SpritesManager.loadImages(config.spriteSheets);
@@ -112,11 +112,16 @@ function adjustCanvasSize (canvas: HTMLCanvasElement): void {
   }
 }
 
-function updateMousePosition (mouse: Mouse, camera: Camera, e?: MouseEvent): void {
+function updateMousePosition (mouse: Mouse, camera: Camera, e?: MouseEvent | TouchEvent): void {
 
   if (e) {
-    mouse.clientPos.x = e.clientX;
-    mouse.clientPos.y = e.clientY;
+    if ('clientX' in e) {
+      // MouseEvent
+      mouse.clientPos.setXY(e.clientX, e.clientY);
+    } else {
+      // TouchEvent
+      mouse.clientPos.setXY(e.touches[0].clientX, e.touches[0].clientY);
+    }
   }
 
   const root = document.body;
