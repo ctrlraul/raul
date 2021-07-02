@@ -54,8 +54,8 @@ const Editor = () => {
 	function drawSprite (canvas: HTMLCanvasElement | null, data: SpriteSourceData): void {
 		if (canvas) {
 			const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-			canvas.width = canvas.offsetWidth;
-			canvas.height = canvas.offsetHeight;
+			canvas.width = 100 * window.devicePixelRatio;
+			canvas.height = 100 * window.devicePixelRatio;
 			SpritesManager.drawRawItem(
 				ctx,
 				data,
