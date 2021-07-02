@@ -22,7 +22,7 @@ const Editor = () => {
 		const hull = PlayerData.getItemByInInventoryID<HullItemType>(shipData.hull).item;
 		const turret = PlayerData.getItemByInInventoryID<TurretItemType>(shipData.turret).item;
 		const gs = Nort.getGameState();
-		const lastShip = displayShip ? gs.ships[0] : null;
+		const lastShip = gs.ships[0];
 
 		gs.clear();
 
@@ -32,7 +32,7 @@ const Editor = () => {
 				turret,
 				hullAngle: lastShip.hullAngle,
 				turretAngle: lastShip.turretAngle,
-				color: lastShip.color,
+				color: PlayerData.color,
 				ai: false,
 			});
 		} else {
@@ -48,7 +48,7 @@ const Editor = () => {
 
 		setDisplayShip(gs.ships[0]);
 
-	}, [shipData, displayShip]);
+	}, [shipData]);
 
 
 	function drawSprite (canvas: HTMLCanvasElement | null, data: SpriteSourceData): void {
