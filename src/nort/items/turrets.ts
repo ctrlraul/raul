@@ -135,7 +135,7 @@ const turrets: TurretItemType[] = [
 	],
 }, {
 	id: 7,
-	name: 'Beam',
+	name: 'Luminous Drill',
 	tier: 2,
 	sprite: new SpriteSourceData('turrets', 2, 18, 14, 14),
 	joint: new Vector2(7, 11),
@@ -328,7 +328,7 @@ const turrets: TurretItemType[] = [
 
 }, {
 	id: 14,
-	name: 'Light Spear',
+	name: 'Glowing Lance',
 	tier: 3,
 	sprite: new SpriteSourceData('turrets', 42, 36, 16, 16),
 	joint: new Vector2(8, 11),
