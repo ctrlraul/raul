@@ -48,7 +48,7 @@ const Editor = () => {
 
 		setDisplayShip(gs.ships[0]);
 
-	}, [shipData]);
+	}, [shipData, displayShip]);
 
 
 	function drawSprite (canvas: HTMLCanvasElement | null, data: SpriteSourceData): void {
