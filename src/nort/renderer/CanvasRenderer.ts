@@ -1,11 +1,8 @@
 import GameState from "../classes/GameState";
 import Settings from "../singletons/Settings";
-import Vector2 from "../utils/Vector2";
-import Ship from "../ships/Ship";
 import Mouse from "../classes/Mouse";
 import projectileRenderingFunctions from "./projectileRenderingFunctions";
 import Camera from "../classes/Camera";
-import SpritesManager from "./SpritesManager";
 import ShipsRenderer from "./ShipsRenderer";
 import ParticleEmitter from "../particles/ParticleEmitter";
 
