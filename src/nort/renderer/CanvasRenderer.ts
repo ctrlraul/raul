@@ -3,10 +3,20 @@ import Settings from "../singletons/Settings";
 import Vector2 from "../utils/Vector2";
 import Ship from "../ships/Ship";
 import Mouse from "../classes/Mouse";
-import Projectile from "../projectiles/Projectile";
 import projectileRenderingFunctions from "./projectileRenderingFunctions";
 import Camera from "../classes/Camera";
 import SpritesManager from "./SpritesManager";
+
+
+
+// Debug
+
+const debug = {
+  RENDER_MOUSE_POSITION: 0,
+  RENDER_SHIP_FIRING_AREA: 0,
+  RENDER_SHIP_RADIUS: 0,
+  RENDER_SHIP_TARGET_POSITION: 0,
+};
 
 
 
@@ -52,12 +62,6 @@ export default CanvasRenderer;
 
 function render (config: RenderConfig): void {
 
-  const RENDER_SHIP_TARGET_POSITION = 0;
-  const RENDER_SHIP_SAFE_AREA = 0;
-  const RENDER_MOUSE_POSITION = 0;
-  const RENDER_SHIP_RADIUS = 0;
-
-
   const { canvas, ctx, camera } = config;
 
   const cameraPos = camera.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
@@ -76,11 +80,7 @@ function render (config: RenderConfig): void {
   ctx.translate(canvas.width / 2, canvas.height / 2);
   ctx.scale(zoom, zoom);
   ctx.translate(-cameraPos.x, -cameraPos.y);
-  
 
-  if (RENDER_SHIP_SAFE_AREA) {
-    renderShipsSafeDistance(config);
-  }
 
   renderGrid(config);
   renderShips(config);
@@ -89,17 +89,9 @@ function render (config: RenderConfig): void {
 
 
   // Debug info
-
-  if (RENDER_SHIP_TARGET_POSITION) {
-    renderShipsTargetPosition(config);
-  }
   
-  if (RENDER_MOUSE_POSITION) {
+  if (debug.RENDER_MOUSE_POSITION) {
     renderMousePosition(config);
-  }
-  
-  if (RENDER_SHIP_RADIUS) {
-    renderShipsRadius(config);
   }
 
 
@@ -126,25 +118,20 @@ function clear (config: {
 }
 
 
-function renderShipsSafeDistance (config: RenderConfig): void {
+function renderShipFiringArea (ctx: CanvasRenderingContext2D, ship: Ship): void {
 
-  const { ctx, gs } = config;
+  const pos = ship.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
+  const radius = (ship.areaRadius + ship.turret.stats.firingRange) * Settings.GRAPHIC_SCALE;
 
-  for (const ship of gs.ships) {
+  ctx.beginPath();
+  ctx.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = ship.color.copy().setA(0.4).toCSS();
+  ctx.fillStyle = ship.color.copy().setA(0.1).toCSS();
+  ctx.fill();
+  ctx.stroke();
+  ctx.closePath();
 
-    const graphicPos = ship.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
-    const radius = (ship.areaRadius + ship.turret.stats.firingRange) * Settings.GRAPHIC_SCALE;
-
-    ctx.beginPath();
-    ctx.arc(graphicPos.x, graphicPos.y, radius, 0, Math.PI * 2);
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = ship.color.copy().setA(0.4).toCSS();
-    ctx.fillStyle = ship.color.copy().setA(0.1).toCSS();
-    ctx.fill();
-    ctx.stroke();
-    ctx.closePath();
-
-  }
 }
 
 
@@ -201,17 +188,31 @@ function renderGrid (config: RenderConfig): void {
 }
 
 
-function renderShips (config: RenderConfig): void {
+function renderShips (cfg: RenderConfig): void {
 
-  const { ctx, gs } = config;
+  const { ctx, gs } = cfg;
 
   for (const ship of gs.ships) {
+
+    if (debug.RENDER_SHIP_FIRING_AREA) {
+      renderShipFiringArea(ctx, ship);
+    }
+
     renderShip(ctx, ship);
+
+    if (debug.RENDER_SHIP_RADIUS) {
+      renderShipRadius(ctx, ship);
+    }
+
+    if (debug.RENDER_SHIP_TARGET_POSITION) {
+      renderShipTargetPosition(ctx, ship);
+    }
+
+    // This one is purposefully not a debug feature.
     if (ship.showInfo) {
       renderShipInfo(ctx, ship);
     }
   }
-
 }
 
 
@@ -352,30 +353,26 @@ function renderParticles (config: RenderConfig): void {
 }
 
 
-function renderShipsTargetPosition (config: RenderConfig): void {
+function renderShipTargetPosition (ctx: CanvasRenderingContext2D, ship: Ship): void {
 
-  const { ctx, gs } = config;
-
-  for (const ship of gs.ships) {
-
-    if (ship.targetPos) {
-
-      const pos = ship.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
-      const targetPos = ship.targetPos.copy().scaleN(Settings.GRAPHIC_SCALE);
-
-      ctx.beginPath();
-
-      ctx.arc(targetPos.x, targetPos.y, Settings.GRAPHIC_SCALE, 0, Math.PI * 2);
-      ctx.moveTo(pos.x, pos.y);
-      ctx.lineTo(targetPos.x, targetPos.y);
-
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = ship.color.toCSS();
-      ctx.fillStyle = '#ffffff';
-      ctx.fill();
-      ctx.stroke();
-    }
+  if (!ship.targetPos) {
+    return;
   }
+
+  const pos = ship.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
+  const targetPos = ship.targetPos.copy().scaleN(Settings.GRAPHIC_SCALE);
+
+  ctx.beginPath();
+
+  ctx.arc(targetPos.x, targetPos.y, Settings.GRAPHIC_SCALE, 0, Math.PI * 2);
+  ctx.moveTo(pos.x, pos.y);
+  ctx.lineTo(targetPos.x, targetPos.y);
+
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = ship.color.toCSS();
+  ctx.fillStyle = '#ffffff';
+  ctx.fill();
+  ctx.stroke();
 
 }
 
@@ -393,25 +390,26 @@ function renderMousePosition (config: RenderConfig): void {
 }
 
 
-function renderShipsRadius (config: RenderConfig): void {
+function renderShipRadius (
+  ctx: CanvasRenderingContext2D,
+  ship: Ship,
+): void {
 
-  const { gs, ctx } = config;
+  const pos = ship.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
+  const radius = ship.areaRadius * Settings.GRAPHIC_SCALE;
 
-  for (const ship of gs.ships) {
-    
-    if (!ship.alive) continue;
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#ff0000';
+  ctx.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.closePath();
 
-    const pos = ship.pos.copy().scaleN(Settings.GRAPHIC_SCALE);
-    const radius = ship.areaRadius * Settings.GRAPHIC_SCALE;
+  ctx.beginPath();
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = '#ffffff';
+  ctx.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.closePath();
 
-    ctx.beginPath();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = '#ff0000';
-
-    ctx.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
-
-    ctx.stroke();
-    ctx.closePath();
-
-  }
 }
