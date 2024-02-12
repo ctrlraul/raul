@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.abd98190.css",
+    "main.js": "/static/js/main.2a03c5ef.js",
+    "static/media/pixelmix.ttf": "/static/media/pixelmix.43079f34c6d2a831a3d5.ttf",
+    "static/media/turrets.png": "/static/media/turrets.70b47d332938908c0f59.png",
+    "static/media/hulls.png": "/static/media/hulls.86e92d470993f75e88a3.png",
+    "static/media/double-arrow-left.svg": "/static/media/double-arrow-left.a209bf650b3d7c0145cc397e60f86c81.svg",
+    "index.html": "/index.html",
+    "main.abd98190.css.map": "/static/css/main.abd98190.css.map",
+    "main.2a03c5ef.js.map": "/static/js/main.2a03c5ef.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.abd98190.css",
+    "static/js/main.2a03c5ef.js"
+  ]
+}
